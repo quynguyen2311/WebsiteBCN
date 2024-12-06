@@ -1,0 +1,46 @@
+:root {
+    --gray50: #FAFAFA;
+    --gray100: #F5F5F5;
+    --gray200: #EEEEEE;
+    --gray300: #E0E0E0;
+    --gray400: #BDBDBD;
+    --gray500: #9E9E9E;
+    --gray600: #757575;
+    --gray700: #616161;
+    --gray800: #424242;
+    --gray900: #212121;
+
+    --white100: #FFFFFF;
+    --white60: rgba(255, 255, 255, 0.6);
+    --white40: rgba(255, 255, 255, 0.4);
+
+    --cyan50: #E0F7FA;
+    --cyan100: #B2EBF2;
+    --cyan200: #80DEEA;
+    --cyan300: #4DD0E1;
+    --cyan400: #26C6DA;
+    --cyan500: #00BCD4;
+    --cyan600: #00ACC1;
+    --cyan700: #0097A7;
+    --cyan800: #00838F;
+    --cyan900: #006064;
+
+    --cyanA100: #84FFFF;
+    --cyanA200: #18FFFF;
+    --cyanA300: #00E5FF;
+    --cyanA400: #00B8D4;
+
+    --banned: #FF3923;
+    --background: #EAE9EE;
+
+    --text-title-default: var(--gray700);
+    --text-box: var(--gray500);
+    --text-subtitle: var(--gray600);
+    --text-paragraph: var(--gray600);
+    --text-cta: var(--cyan800);
+    --accent: var(--cyan600);
+
+    --surface-box-default: var(--gray100);
+    --surface-box-select: var(--gray200);
+    --surface-card-glass: var(--white60);
+}
