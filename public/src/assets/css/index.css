@@ -131,7 +131,9 @@ body {
     right: 16rem;
     top: 16rem;
 }
-
+.homepage .header .avatar{
+    cursor: pointer;
+}
 .homepage .header .avatar,
 .homepage .header .avatar * {
     display: flex;
