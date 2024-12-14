@@ -38,7 +38,7 @@ body {
     position: fixed;
     top: 0;
     width: calc(100% + (100vh / 778 * 1440));
-    background-color: #eae9ee;
+    background-color: var(--token-background);
     height: 100vh;
     z-index: -2;
     left: 0;
@@ -121,7 +121,7 @@ body {
     font-size: 14rem;
     line-height: 20rem;
     letter-spacing: 0.001em;
-    color: #424242;
+    color: var(--base-palette-gray-800);
 }
 
 .homepage .header .seacrh-icon svg {
@@ -157,7 +157,9 @@ body {
     width: 17rem;
     height: 17rem;
 }
-
+.homepage .header .avatar:hover .avatar__in .icon svg *{
+    fill:var(--base-palette-cyan-800);
+}
 .homepage .container {
     width: 100%;
     height: calc(100vh - 108rem);
@@ -196,7 +198,7 @@ body {
     font-size: 57rem;
     line-height: 64rem;
     letter-spacing: -0.0025em;
-    color: var(--text-title-default);
+    color: var(--base-palette-gray-600);
 }
 
 .homepage .container .page2 h1 {
@@ -216,7 +218,7 @@ body {
     font-size: 16rem;
     line-height: 24rem;
     letter-spacing: 0.005em;
-    color: var(--text-paragraph);
+    color: var(--base-palette-gray-600);
 }
 
 .homepage .page2 .text {
@@ -235,11 +237,11 @@ body {
 }
 
 .homepage .page2 .text:hover h1 {
-    color: var(--text-cta);
+    color: var(--base-palette-cyan-800);
 }
 
 .homepage .page2 .text:hover {
-    border: 1rem solid var(--accent);
+    border: 1rem solid var(--base-palette-cyan-600);
 }
 
 .homepage .container .page1 button {
@@ -250,14 +252,14 @@ body {
     font-size: 14rem;
     line-height: 20rem;
     letter-spacing: 0.001em;
-    color: var(--white100);
+    color: var(--base-palette-white-100);
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 133rem;
     height: 40rem;
-    background: var(--accent);
+    background: var(--base-palette-cyan-600);
     backdrop-filter: blur(2rem);
     border-radius: 128rem;
     transition: all 0.5s;
@@ -278,11 +280,11 @@ body {
     top: 0;
     left: 0rem;
     box-sizing: border-box;
-    color: var(--accent);
+    color: var(--base-palette-cyan-600);
     background: transparent;
     border: 1rem solid transparent;
-    background: linear-gradient(var(--background) 0 0) padding-box,
-        linear-gradient(-45deg, var(--accent) 40%, var(--cyanA200) 100%) border-box;
+    background: linear-gradient(var(--base-palette-gray-250) 0 0) padding-box,
+        linear-gradient(-45deg, var(--base-palette-cyan-600) 40%, var(--base-palette-cyan-200) 100%) border-box;
 }
 
 .homepage .container .image {
@@ -342,7 +344,7 @@ body {
     font-size: 14rem;
     line-height: 20rem;
     letter-spacing: 0.001em;
-    color: var(--text-cta);
+    color: var(--base-palette-cyan-800);
 }
 
 .homepage .box .top {
@@ -361,11 +363,11 @@ body {
     line-height: 28rem;
     transition: 0.5s;
     cursor: pointer;
-    color: var(--text-title-default);
+    color: var(--base-palette-gray-700);
 }
 
 .homepage .page2 .box .top div:hover {
-    color: var(--text-cta);
+    color: var(--base-palette-cyan-800);
 }
 
 .homepage .page3 .content {
@@ -495,6 +497,7 @@ body {
     right: 20rem;
     top: 50%;
     translate: 0 -50%;
+    z-index: 3;
 }
 
 .homepage .scroll-index .index {

@@ -1,21 +1,26 @@
+const container = document.querySelector(".container");
+const pages = document.querySelectorAll(".page");
+let currentPage = "";
 
-const avarta = document.querySelector('.avarta');
-const border_icon = document.querySelector('.border_icon');
-let rotateDeg = 0;
-let rotateInterval;
+container.addEventListener("scroll", () => {
+    let foundPage = Array.from(pages).find(page => {
+        const rect = page.getBoundingClientRect();
+        return rect.top >= 0 && rect.top < window.innerHeight / 2;
+    })?.id;
 
-avarta.addEventListener('mouseenter', () => {
-    rotateInterval = setInterval(() => {
-        rotateDeg = (rotateDeg + 1) % 360;
-        border_icon.style.transform = `rotate(${rotateDeg}deg)`;
-    }, 16); // approximately 60 frames per second
+    if (foundPage && foundPage !== currentPage) {
+        currentPage = foundPage;
+        document.querySelectorAll('.index').forEach(index => index.classList.remove('active'));
+        document.getElementById(currentPage.replace('page', 'index')).classList.add('active');
+    }
 });
 
-avarta.addEventListener('mouseleave', () => {
-    border_icon.style.transform = `rotate(${rotateDeg}deg)`;
-    border_icon.style.transition = '2s';
-    setTimeout(() => {
-        border_icon.style.transform = 'rotate(0deg)';
-    }, 100);
-    clearInterval(rotateInterval);
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById(this.getAttribute('href').substring(1)).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
 });

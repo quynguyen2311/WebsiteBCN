@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload ảnh lên Cloudinary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .upload-container {
+            max-width: 400px;
+            margin: auto;
+        }
+        #upload-result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        #uploaded-image {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="upload-container">
+        <h2>Upload ảnh lên Cloudinary</h2>
+        
+        <!-- Thêm nút để mở widget tải lên -->
+        <button id="upload_widget_opener">Tải ảnh lên Cloudinary</button>
+
+        <!-- Hiển thị ảnh tải lên -->
+        <img id="uploaded-image" src="" alt="" style="display: none;">
+        
+        <div id="upload-result"></div>
+    </div>
+
+    <script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+    <script>
+        const cloudinaryConfig = {
+            cloud_name: 'dja3ehblp',  // Cloud Name của bạn
+            upload_preset: 'your_upload_preset'  // Upload Preset của bạn
+        };
+
+        const myWidget = cloudinary.createUploadWidget(
+            {
+                cloudName: cloudinaryConfig.cloud_name,
+                uploadPreset: cloudinaryConfig.upload_preset,
+                sources: ['local', 'url', 'camera'],
+                multiple: false,
+                cropping: true
+            },
+            (error, result) => {
+                if (result.event === 'success') {
+                    console.log('Image uploaded successfully:', result.info);
+                    // Hiển thị ảnh sau khi tải lên
+                    document.getElementById('uploaded-image').src = result.info.secure_url;
+                    document.getElementById('uploaded-image').style.display = 'block'; // Hiển thị ảnh
+                    document.getElementById('upload-result').innerText = 'Ảnh đã được tải lên thành công!';
+                }
+            }
+        );
+
+        // Khi nhấn nút, mở widget
+        document.getElementById('upload_widget_opener').addEventListener('click', function () {
+            myWidget.open();
+        });
+    </script>
+
+</body>
+</html>

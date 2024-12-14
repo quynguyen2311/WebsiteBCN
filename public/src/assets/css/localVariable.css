@@ -1,46 +1,129 @@
 :root {
-    --gray50: #FAFAFA;
-    --gray100: #F5F5F5;
-    --gray200: #EEEEEE;
-    --gray300: #E0E0E0;
-    --gray400: #BDBDBD;
-    --gray500: #9E9E9E;
-    --gray600: #757575;
-    --gray700: #616161;
-    --gray800: #424242;
-    --gray900: #212121;
-
-    --white100: #FFFFFF;
-    --white60: rgba(255, 255, 255, 0.6);
-    --white40: rgba(255, 255, 255, 0.4);
-
-    --cyan50: #E0F7FA;
-    --cyan100: #B2EBF2;
-    --cyan200: #80DEEA;
-    --cyan300: #4DD0E1;
-    --cyan400: #26C6DA;
-    --cyan500: #00BCD4;
-    --cyan600: #00ACC1;
-    --cyan700: #0097A7;
-    --cyan800: #00838F;
-    --cyan900: #006064;
-
-    --cyanA100: #84FFFF;
-    --cyanA200: #18FFFF;
-    --cyanA300: #00E5FF;
-    --cyanA400: #00B8D4;
-
-    --banned: #FF3923;
-    --background: #EAE9EE;
-
-    --text-title-default: var(--gray700);
-    --text-box: var(--gray500);
-    --text-subtitle: var(--gray600);
-    --text-paragraph: var(--gray600);
-    --text-cta: var(--cyan800);
-    --accent: var(--cyan600);
-
-    --surface-box-default: var(--gray100);
-    --surface-box-select: var(--gray200);
-    --surface-card-glass: var(--white60);
+    /* Base */
+        /* Pallete */
+            /* White-Black */
+            --base-palette-white-100: #FFFFFF;
+            --base-palette-white-60: rgba(255, 255, 255, 0.6);
+            --base-palette-white-40: rgba(255, 255, 255, 0.4);
+            --base-palette-black-100: #000000;
+            /* Gray */
+            --base-palette-gray-50: #FAFAFA;
+            --base-palette-gray-100: #F5F5F5;
+            --base-palette-gray-200: #EEEEEE;
+            --base-palette-gray-250: #EAE9EE;
+            --base-palette-gray-300: #E0E0E0;
+            --base-palette-gray-400: #BDBDBD;
+            --base-palette-gray-500: #9E9E9E;
+            --base-palette-gray-600: #757575;
+            --base-palette-gray-700: #616161;
+            --base-palette-gray-800: #424242;
+            --base-palette-gray-900: #212121;
+            /* Cyan */
+            --base-palette-cyan-50: #E0F7FA;
+            --base-palette-cyan-100: #B2EBF2;
+            --base-palette-cyan-200: #80DEEA;
+            --base-palette-cyan-300: #4DD0E1;
+            --base-palette-cyan-400: #26C6DA;
+            --base-palette-cyan-500: #00BCD4;
+            --base-palette-cyan-600: #00ACC1;
+            --base-palette-cyan-700: #0097A7;
+            --base-palette-cyan-800: #00838F;
+            --base-palette-cyan-900: #006064;
+            /* Red */
+            --base-palette-red50: #FEEBEE;
+            --base-palette-red100: #FECED2;
+            --base-palette-red200: #ED9B9A;
+            --base-palette-red300: #E27573;
+            --base-palette-red400: #EC5751;
+            --base-palette-red500: #F04837;
+            --base-palette-red600: #E13F36;
+            --base-palette-red700: #CF3630;
+            --base-palette-red800: #C22F29;
+            --base-palette-red900: #B3261E;
+            /* Green */
+            --base-palette-green50: #E7F5E7;
+            --base-palette-green100: #C5E5C4;
+            --base-palette-green200: #A0D49F;
+            --base-palette-green300: #7AC479;
+            --base-palette-green400: #5CB85C;
+            --base-palette-green500: #3EAB3E;
+            --base-palette-green600: #359D36;
+            --base-palette-green700: #288B2B;
+            --base-palette-green800: #1C7A20;
+            --base-palette-green900: #025B0E;
+            /* Yellow */
+            --base-palette-yellow50: #FEFCE6;
+            --base-palette-yellow100: #FCF7C1;
+            --base-palette-yellow200: #FAF198;
+            --base-palette-yellow300: #F8EC6E;
+            --base-palette-yellow400: #F6E74D;
+            --base-palette-yellow500: #F3E228;
+            --base-palette-yellow600: #F4D225;
+            --base-palette-yellow700: #F3BA1C;
+            --base-palette-yellow800: #F1A212;
+            --base-palette-yellow900: #EE7800;
+        /* Number */
+            /* %(Percent) */
+            --percent-100: 100;
+            --percent-80: 80;
+            --percent-60: 60;
+            --percent-40: 40;
+            --percent-20: 20;
+            --percent-0: 0;
+            /* Unit */
+            --size-2px: 2px;
+            --size-4px: 4px;
+            --size-8px: 8px;
+            --size-12px: 12px;
+            --size-16px: 16px;
+            --size-24px: 24px;
+            --size-32px: 32px;
+            --size-40px: 40px;
+            --size-48px: 48px;
+            --size-56px: 56px;
+            --size-64px: 64px;
+            --size-96px: 96px;
+            --size-128px: 128px;
+/* Token */
+    /* Color */
+    --token-primary: var(--base-palette-cyan-800);
+    --token-primary-lighter: var(--base-palette-cyan-600);
+    --token-onprimary: var(--base-palette-white-100);
+    --token-background: var(--base-palette-gray-250);
+    --token-onbackground-1: var(--base-palette-gray-800);
+    --token-onbackground-2: var(--base-palette-gray-700);
+    --token-onbackground-3: var(--base-palette-gray-600);
+    --token-error: var(--base-palette-red900);
+    --token-color-warning: #FFCC00;
+    --token-color-success: var(--base-palette-green800);
+    --token-color-link: var(--token-primary);
+    /* Radius */
+    --radius-full: 128px;
+    --radius-large: 32px;
+    --radius-medium: 16px;
+    --radius-small: 4px;
+/* Components */
+    /* Button */
+        /* Surface */
+        --surface-primary-default: var(--token-primary);
+        --surface-primary-hover: var(--token-primary-lighter);
+        --surface-primary-pressed: var(--token-background);
+        --surface-secondary: var(--token-background);
+        --surface-tertiary: var(--token-background);
+        /* Text */
+        --text-primary: var(--token-onprimary);
+        --text-primary-pressed: var(--token-onbackground-2);
+        --text-secondary: var(--token-primary);
+        --text-secondary-pressed: var(--token-onbackground-2);
+        --text-tertiary: var(--token-onbackground-1);
+        --text-tertiary-hovered: var(--token-primary);
+        --text-plain: var(--token-onbackground-1);
+        --text-plain-a: var(--token-primary);
+        /* Border */
+        --border-hovered: var(--token-primary);
+        --border-white: var(--base-palette-white-100);
+        /* Corner */
+        --corner-rounded-full: var(--radius-full);
+    /* Tooltip */
+    
 }
