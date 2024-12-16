@@ -1,44 +1,51 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBEYTw6TCZHC0IV3lIAEfkTAte-JHf6cJs",
-  authDomain: "webbcn-3b6f6.firebaseapp.com",
-  projectId: "webbcn-3b6f6",
-  storageBucket: "webbcn-3b6f6.firebasestorage.app",
-  messagingSenderId: "727862906440",
-  appId: "1:727862906440:web:2a1354ad161d9b2d99527d",
-  measurementId: "G-PP830PMJ5K"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 document.getElementById("login_button").addEventListener("click", async (event) => {
   event.preventDefault();
-  const email = `${document.getElementById("user").value}@gmail.com`;
+  
+  const username = document.getElementById("user").value.trim();
   const password = document.getElementById("pass").value;
 
+  if (!username || !password) {
+    alert("Vui lòng nhập đầy đủ thông tin đăng nhập.");
+    return;
+  }
+
+  const email = `${username}@gmail.com`;
+
   try {
+    // Xử lý đăng nhập với Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
+    // Lưu thông tin người dùng vào localStorage
     localStorage.setItem("userEmail", user.email);
     localStorage.setItem("userUid", user.uid);
     localStorage.setItem("loginTime", new Date().getTime());
 
     if (document.getElementById("remember").checked) {
-      localStorage.setItem("User", document.getElementById("user").value);
-      localStorage.setItem("Pass", password);
+      // Lưu username vào localStorage (không lưu mật khẩu để đảm bảo an toàn)
+      localStorage.setItem("User", username);
     } else {
+      // Xóa thông tin lưu trữ khi không chọn "Remember me"
       localStorage.removeItem("User");
-      localStorage.removeItem("Pass");
     }
 
-    window.location.reload();
+    // Cập nhật giao diện hoặc chuyển hướng
+    window.location.href = "./index.html"; // Chuyển hướng đến trang index
   } catch (error) {
+    // Xử lý lỗi đăng nhập chi tiết
+    console.error("Lỗi đăng nhập:", error);
+
+    const errorMessage = {
+      "auth/wrong-password": "Sai mật khẩu, vui lòng thử lại!",
+      "auth/user-not-found": "Tài khoản không tồn tại, vui lòng kiểm tra lại!"
+    }[error.code] || `Đăng nhập không thành công! Lỗi: ${error.message}`;
+
+    alert(errorMessage);
+
+    // Xóa thông tin tài khoản không hợp lệ
     localStorage.removeItem("User");
-    localStorage.removeItem("Pass");
-    alert("Đăng nhập không thành công!");
   }
 });

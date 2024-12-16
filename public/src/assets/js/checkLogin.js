@@ -1,26 +1,16 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBEYTw6TCZHC0IV3lIAEfkTAte-JHf6cJs",
-  authDomain: "webbcn-3b6f6.firebaseapp.com",
-  projectId: "webbcn-3b6f6",
-  storageBucket: "webbcn-3b6f6.firebasestorage.app",
-  messagingSenderId: "727862906440",
-  appId: "1:727862906440:web:2a1354ad161d9b2d99527d",
-  measurementId: "G-PP830PMJ5K"
-};
+import { auth } from './firebase.js';
+import { onAuthStateChanged, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 const avatarElement = document.querySelector('.avatar__in');
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
+// Hàm xóa dữ liệu đăng nhập
 function clearLoginData() {
   localStorage.removeItem("userEmail");
   localStorage.removeItem("userUid");
   localStorage.removeItem("loginTime");
 }
 
+// Hàm cập nhật avatar
 function updateAvatar(imageUrl) {
   while (avatarElement.firstChild) {
     avatarElement.removeChild(avatarElement.firstChild);
@@ -30,17 +20,20 @@ function updateAvatar(imageUrl) {
   avatarElement.style.backgroundPosition = 'center';
 }
 
+// Kiểm tra trạng thái đăng nhập
 function checkLoginStatus() {
   const userEmail = localStorage.getItem("userEmail");
   const userUid = localStorage.getItem("userUid");
   const loginTime = localStorage.getItem("loginTime");
 
+  // Kiểm tra dữ liệu localStorage
   if (!userEmail || !userUid || !loginTime) {
     console.log("Chưa đăng nhập");
-    avatarElement.setAttribute('onclick', 'showSignin()');
+    avatarElement.setAttribute('onclick', 'showSignin()'); // Gán chuỗi hàm
     return;
   }
 
+  // Kiểm tra thời gian phiên đăng nhập
   const elapsedTime = new Date().getTime() - parseInt(loginTime);
   if (elapsedTime > 15 * 60 * 1000) {
     clearLoginData();
@@ -49,10 +42,11 @@ function checkLoginStatus() {
     return;
   }
 
+  // Kiểm tra trạng thái đăng nhập Firebase
   onAuthStateChanged(auth, (user) => {
     if (user && user.email === userEmail && user.uid === userUid) {
-      console.log(`Ma sinh viên: ${userEmail.replace('@gmail.com', '')}`);
-      avatarElement.setAttribute('onclick', 'log_out()');
+      console.log(`Mã sinh viên: ${userEmail.replace('@gmail.com', '')}`);
+      avatarElement.setAttribute('onclick', 'log_out()'); // Gán chuỗi hàm
       const imageUrl = `https://res.cloudinary.com/dja3ehblp/image/upload/A${userEmail.replace('@gmail.com', '')}.jpg`;
       console.log(`URL ảnh đại diện: ${imageUrl}`);
       updateAvatar(imageUrl);
@@ -64,4 +58,17 @@ function checkLoginStatus() {
   });
 }
 
+// Hàm hiển thị form đăng nhập (placeholder)
+function showSignin() {
+  console.log("Hiển thị form đăng nhập");
+}
+
+// Hàm đăng xuất (placeholder)
+function log_out() {
+  console.log("Đăng xuất người dùng");
+  clearLoginData();
+  avatarElement.setAttribute('onclick', 'showSignin()');
+}
+
+// Gọi hàm kiểm tra trạng thái đăng nhập
 checkLoginStatus();
