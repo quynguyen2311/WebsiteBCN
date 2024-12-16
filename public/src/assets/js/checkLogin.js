@@ -1,10 +1,8 @@
-import { auth } from './firebase.js';
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-
+// checklogin.js
+import { auth } from './firebase.js'; // Đảm bảo đường dẫn đúng đến file firebase.js
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 const avatarElement = document.querySelector('.avatar__in');
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 function clearLoginData() {
   localStorage.removeItem("userEmail");
@@ -56,4 +54,3 @@ function checkLoginStatus() {
 }
 
 checkLoginStatus();
-document.currentScript.parentNode.removeChild(document.currentScript);
