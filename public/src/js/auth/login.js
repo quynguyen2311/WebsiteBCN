@@ -53,7 +53,7 @@ const handleLoginError = (error) => {
     console.error("Lỗi đăng nhập:", error);
 
     const errorMessage = ERROR_MESSAGES[error.code] || `${ERROR_MESSAGES.default}${error.message}`;
-    Alert("Lỗi đăng nhập", errorMessage);
+    Alert("Lỗi đăng nhập", errorMessage, 3000, "red", "red");
 
     localStorage.removeItem("User");
 };

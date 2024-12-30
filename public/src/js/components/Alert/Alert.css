@@ -1,14 +1,53 @@
 .alert-container {
-    z-index: 1000;
-    position: absolute;
-    min-width: 150px;
+    z-index: 9999;
+    position: fixed;
+    top: 15px;
+    right: 0;
     width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 15rem;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 5px 0 0 5px;
+    
+    animation: fadeIn 0.5s ease-out;
 }
 
-.alert-container strong{
-    width: max-content;
+.alert-container.fade-out {
+    animation: fadeOut 0.5s ease-out;
 }
 
-.alert-container span{
+@keyframes fadeIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.alert-container {
+    transition: all 0.5s ease-out;
+}
+
+.alert-container strong,
+.alert-container span {
     width: max-content;
+    font-size: inherit;
 }
