@@ -1,5 +1,5 @@
 // checklogin.js
-import { auth } from './firebase.js'; // Đảm bảo đường dẫn đúng đến file firebase.js
+import { auth } from './configs/firebase.js'; // Đảm bảo đường dẫn đúng đến file firebase.js
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 const avatarElement = document.querySelector('.avatar__in');

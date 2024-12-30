@@ -27,7 +27,7 @@ function log_out() {
 function showSignin() {
   document.body.innerHTML = Data_ + bodyCode;
   const script_auth = document.createElement('script');
-  script_auth.src = './src/assets/js/auth.js';
+  script_auth.src = './src/js/auth/login.js';
   script_auth.type = 'module';
   document.body.appendChild(script_auth);
 

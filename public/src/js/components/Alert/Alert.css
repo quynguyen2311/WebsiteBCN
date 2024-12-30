@@ -1,0 +1,14 @@
+.alert-container {
+    z-index: 1000;
+    position: absolute;
+    min-width: 150px;
+    width: max-content;
+}
+
+.alert-container strong{
+    width: max-content;
+}
+
+.alert-container span{
+    width: max-content;
+}
