@@ -10,6 +10,7 @@ const rememberCheckbox = document.getElementById("remember");
 const ERROR_MESSAGES = {
     "auth/wrong-password": "Sai mật khẩu, vui lòng thử lại!",
     "auth/user-not-found": "Tài khoản không tồn tại, vui lòng kiểm tra lại!",
+    "auth/invalid-credential": "Thông tin đăng nhập không hợp lệ, vui lòng thử lại!",
     "default": "Đăng nhập không thành công! Lỗi: "
 };
 
@@ -20,7 +21,7 @@ const handleLogin = async (event) => {
     const password = passwordInput.value;
 
     if (!username || !password) {
-        Alert("Lỗi đăng nhập", "Vui lòng nhập đầy đủ thông tin đăng nhập.");
+        Alert("Lỗi đăng nhập", "Vui lòng nhập đầy đủ thông tin đăng nhập.", 3000, "red", "red");
         return;
     }
 

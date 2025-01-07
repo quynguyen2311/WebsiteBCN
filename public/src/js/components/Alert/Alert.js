@@ -13,7 +13,7 @@ function createAlertTitle(title, titleColor) {
 }
 
 function createAlertDetail(detail, detailColor) {
-    const alertDetail = document.createElement('span');
+    const alertDetail = document.createElement('p');
     alertDetail.textContent = ` ${detail}`;
     alertDetail.style.color = detailColor;
     return alertDetail;
@@ -37,9 +37,9 @@ function showAlert(alertContainer, timeout) {
 }
 
 function Alert(title, detail, timeout = 3000, titleColor = "black", detailColor = "black") {
-    removeExistingAlert();
+    // removeExistingAlert();
     const alertContainer = createAlertContainer();
-    alertContainer.appendChild(createAlertTitle(title, titleColor));
+    alertContainer.appendChild(createAlertTitle(title + ":", titleColor));
     alertContainer.appendChild(createAlertDetail(detail, detailColor));
     showAlert(alertContainer, timeout);
 }
