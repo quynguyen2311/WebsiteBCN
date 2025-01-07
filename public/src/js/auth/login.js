@@ -1,18 +1,12 @@
 import { auth } from "../configs/firebase.js";
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 import Alert from "../components/Alert/Alert.js";
+import { LOGIN_ERROR_MESSAGES } from "../error_messages.js";
 
 const loginButton = document.getElementById("login_button");
 const usernameInput = document.getElementById("user");
 const passwordInput = document.getElementById("pass");
 const rememberCheckbox = document.getElementById("remember");
-
-const ERROR_MESSAGES = {
-    "auth/wrong-password": "Sai mật khẩu, vui lòng thử lại!",
-    "auth/user-not-found": "Tài khoản không tồn tại, vui lòng kiểm tra lại!",
-    "auth/invalid-credential": "Thông tin đăng nhập không hợp lệ, vui lòng thử lại!",
-    "default": "Đăng nhập không thành công! Lỗi: "
-};
 
 const handleLogin = async (event) => {
     event.preventDefault();
@@ -29,16 +23,14 @@ const handleLogin = async (event) => {
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        saveUserInfo(user, username);
+        storeUser(userCredential.user, username);
         window.location.href = "./index.html";
     } catch (error) {
         handleLoginError(error);
     }
 };
 
-const saveUserInfo = (user, username) => {
+const storeUser = (user, username) => {
     localStorage.setItem("userEmail", user.email);
     localStorage.setItem("userUid", user.uid);
     localStorage.setItem("loginTime", new Date().getTime());
@@ -51,11 +43,8 @@ const saveUserInfo = (user, username) => {
 };
 
 const handleLoginError = (error) => {
-    console.error("Lỗi đăng nhập:", error);
-
-    const errorMessage = ERROR_MESSAGES[error.code] || `${ERROR_MESSAGES.default}${error.message}`;
+    const errorMessage = LOGIN_ERROR_MESSAGES[error.code] || `${LOGIN_ERROR_MESSAGES.default}${error.message}`;
     Alert("Lỗi đăng nhập", errorMessage, 3000, "red", "red");
-
     localStorage.removeItem("User");
 };
 
