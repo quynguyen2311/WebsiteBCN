@@ -31,7 +31,7 @@ async function handleLogin(event) {
 }
 
 function showLoginError(msg) {
-	Alert("Lỗi đăng nhập", msg, 3000, "red", "black");
+	Alert("Lỗi đăng nhập", msg, 3000, "red", "red");
 }
 
 async function performLogin(data) {
@@ -57,7 +57,7 @@ async function performLogin(data) {
 
 function handleLoginError(err) {
 	const errMsg = LOGIN_ERROR_MESSAGES[err.code] || `${LOGIN_ERROR_MESSAGES.default}${err.message}`;
-	Alert("Lỗi đăng nhập", errMsg, 3000, "red", "black");
+	Alert("Lỗi đăng nhập", errMsg, 3000, "red", "red");
 }
 
 export default handleLogin;
