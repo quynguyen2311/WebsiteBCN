@@ -37,7 +37,7 @@ function showAlert(alertContainer, timeout) {
 }
 
 function Alert(title, detail, timeout = 3000, titleColor = "black", detailColor = "black") {
-    // removeExistingAlert();
+    removeExistingAlert();
     const alertContainer = createAlertContainer();
     alertContainer.appendChild(createAlertTitle(title + ":", titleColor));
     alertContainer.appendChild(createAlertDetail(detail, detailColor));

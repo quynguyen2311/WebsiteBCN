@@ -1,11 +1,12 @@
 import Alert from "../components/Alert/Alert.js";
 import { validateUsername, validatePassword } from "../validate/login.js";
 import { validXSS } from "../validate/xss.js";
-import { LOGIN_ERROR_MESSAGES } from "../constants/main.js";
+import { LOGIN_ERROR_MESSAGES, LOGIN_COOKIE_CONFIG } from "../constants/main.js";
 import { accountInput, passwordInput, rememberCheckbox } from "../constants/loginDomElement.js";
-import { db } from "../configs/firebase.js";
-import { collection, getDoc, doc } from "../configs/firebase.js";
+import { db, collection, getDoc, doc } from "../configs/firebase.js";
 import { hashPassword } from "../utils/hash.js";
+import { setCookie } from "../utils/cookie.js";
+import { getUserData } from "./handleGetUserData.js";
 
 async function handleLogin(event) {
 	event.preventDefault();
@@ -16,43 +17,47 @@ async function handleLogin(event) {
 		rem: rememberCheckbox.checked,
 	};
 
-	if (!(validateUsername(data.acc) && validatePassword(data.pwd))) {
+	if (!validateUsername(data.acc) || !validatePassword(data.pwd)) {
 		showLoginError("Vui lòng nhập đầy đủ thông tin đăng nhập.");
 		return;
 	}
 
-	data.pwd = await hashPassword(data.pwd);
-	performLogin(data);
+	try {
+		data.pwd = await hashPassword(data.pwd);
+		await performLogin(data);
+	} catch (err) {
+		handleLoginError(err);
+	}
 }
 
 function showLoginError(msg) {
-	Alert("Lỗi đăng nhập", msg, 3000, "red", "red");
+	Alert("Lỗi đăng nhập", msg, 3000, "red", "black");
 }
 
-function performLogin(data) {
-	const loginInfoCol = collection(db, "loginInfo");
-	const userDoc = doc(loginInfoCol, data.acc);
-	getDoc(userDoc)
-		.then((doc) => {
-			if (!doc.exists()) {
-				showLoginError("Tài khoản không tồn tại.");
-				return;
-			}
-			const userLoginData = doc.data();
-			if (userLoginData.passwordHashed !== data.pwd) {
-				showLoginError("Mật khẩu không đúng.");
-				return;
-			}
-			Alert("Đăng nhập thành công", "Chào mừng bạn trở lại!", 3000, "green", "green");
-		})
-		.catch((err) => {
-			handleLoginError(err);
-		});
+async function performLogin(data) {
+	const userDoc = await getDoc(doc(collection(db, "loginInfo"), data.acc));
+	if (!userDoc.exists()) {
+		showLoginError("Tài khoản không tồn tại.");
+		return;
+	}
+
+	const userLoginData = userDoc.data();
+	if (userLoginData.passwordHashed !== data.pwd) {
+		showLoginError("Mật khẩu không đúng.");
+		return;
+	}
+
+	const UID = userLoginData.UID;
+	setCookie('UID', UID, LOGIN_COOKIE_CONFIG.STORE_PATH_EXPIRE);
+
+	// DEMO
+	const {name} = await getUserData();
+	Alert("Đăng nhập thành công", `Chào mừng ${name} quay trở lại!`, 3000, "green", "green");
 }
 
 function handleLoginError(err) {
 	const errMsg = LOGIN_ERROR_MESSAGES[err.code] || `${LOGIN_ERROR_MESSAGES.default}${err.message}`;
-	Alert("Lỗi đăng nhập", errMsg, 3000, "red", "red");
+	Alert("Lỗi đăng nhập", errMsg, 3000, "red", "black");
 }
 
 export default handleLogin;

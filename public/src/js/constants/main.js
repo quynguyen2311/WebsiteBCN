@@ -9,9 +9,19 @@ const LOGIN_ERROR_MESSAGES = {
 	default: "Đăng nhập không thành công! Lỗi: ",
 };
 
+const GET_USER_ERROR_MESSAGES = {
+	USER_DATA_PATH_NOT_FOUND: "Không tìm thấy đường dẫn dữ liệu người dùng trong cookie.",
+	DOCUMENT_NOT_FOUND: "Không tìm thấy DOCUMENT chứa tài liệu người dùng!",
+	FETCH_ERROR: "Lỗi khi lấy dữ liệu người dùng từ cơ sở dữ liệu!",
+};
+
 const HASH_PASSWORD_CONSTANTS = {
 	HASH_ALGORITHM: "SHA-256",
 	TEXT_ENCODER: new TextEncoder(),
 };
 
-export { LOGIN_ERROR_MESSAGES, HASH_PASSWORD_CONSTANTS };
+const LOGIN_COOKIE_CONFIG = {
+	STORE_PATH_EXPIRE: 5 * 60,
+};
+
+export { LOGIN_ERROR_MESSAGES, HASH_PASSWORD_CONSTANTS, LOGIN_COOKIE_CONFIG, GET_USER_ERROR_MESSAGES };
