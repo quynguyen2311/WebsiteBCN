@@ -1,38 +1,58 @@
-import { auth } from "../configs/firebase.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 import Alert from "../components/Alert/Alert.js";
 import { validateUsername, validatePassword } from "../validate/login.js";
 import { validXSS } from "../validate/xss.js";
-import { LOGIN_ERROR_MESSAGES } from "../constants/errorMessages.js";
-import { usernameInput, passwordInput, rememberCheckbox } from "../constants/loginDomElements.js";
+import { LOGIN_ERROR_MESSAGES } from "../constants/main.js";
+import { accountInput, passwordInput, rememberCheckbox } from "../constants/loginDomElement.js";
+import { db } from "../configs/firebase.js";
+import { collection, getDoc, doc } from "../configs/firebase.js";
+import { hashPassword } from "../utils/hash.js";
 
-const handleLogin = async (event) => {
-    event.preventDefault();
+async function handleLogin(event) {
+	event.preventDefault();
 
-    const username = validXSS(usernameInput.value.trim());
-    const password = validXSS(passwordInput.value);
+	const data = {
+		acc: validXSS(accountInput.value.trim()),
+		pwd: validXSS(passwordInput.value),
+		rem: rememberCheckbox.checked,
+	};
 
-    if (!validateUsername(username) || !validatePassword(password)) {
-        Alert("Lỗi đăng nhập", "Vui lòng nhập đầy đủ thông tin đăng nhập.", 3000, "red", "red");
-        return;
-    }
+	if (!(validateUsername(data.acc) && validatePassword(data.pwd))) {
+		showLoginError("Vui lòng nhập đầy đủ thông tin đăng nhập.");
+		return;
+	}
 
-    const email = `${username}@gmail.com`;
+	data.pwd = await hashPassword(data.pwd);
+	performLogin(data);
+}
 
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+function showLoginError(msg) {
+	Alert("Lỗi đăng nhập", msg, 3000, "red", "red");
+}
 
-        window.location.href = "./index.html";
-    } catch (error) {
-        handleLoginError(error);
-    }
-};
+function performLogin(data) {
+	const loginInfoCol = collection(db, "loginInfo");
+	const userDoc = doc(loginInfoCol, data.acc);
+	getDoc(userDoc)
+		.then((doc) => {
+			if (!doc.exists()) {
+				showLoginError("Tài khoản không tồn tại.");
+				return;
+			}
+			const userLoginData = doc.data();
+			if (userLoginData.passwordHashed !== data.pwd) {
+				showLoginError("Mật khẩu không đúng.");
+				return;
+			}
+			Alert("Đăng nhập thành công", "Chào mừng bạn trở lại!", 3000, "green", "green");
+		})
+		.catch((err) => {
+			handleLoginError(err);
+		});
+}
 
-const handleLoginError = (error) => {
-    const errorMessage = LOGIN_ERROR_MESSAGES[error.code] || `${LOGIN_ERROR_MESSAGES.default}${error.message}`;
-    Alert("Lỗi đăng nhập", errorMessage, 3000, "red", "red");
-    localStorage.removeItem("User");
-};
+function handleLoginError(err) {
+	const errMsg = LOGIN_ERROR_MESSAGES[err.code] || `${LOGIN_ERROR_MESSAGES.default}${err.message}`;
+	Alert("Lỗi đăng nhập", errMsg, 3000, "red", "red");
+}
 
 export default handleLogin;

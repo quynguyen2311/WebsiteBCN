@@ -1,7 +1,3 @@
-// checklogin.js
-import { auth } from '../configs/firebase.js'; // Đảm bảo đường dẫn đúng đến file firebase.js
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-
 const avatarElement = document.querySelector('.avatar__in');
 
 function clearLoginData() {
@@ -37,20 +33,6 @@ function checkLoginStatus() {
     avatarElement.setAttribute('onclick', 'showSignin()');
     return;
   }
-
-  onAuthStateChanged(auth, (user) => {
-    if (user && user.email === userEmail && user.uid === userUid) {
-      console.log(`Ma sinh viên: ${userEmail.replace('@gmail.com', '')}`);
-      avatarElement.setAttribute('onclick', 'log_out()');
-      const imageUrl = `https://res.cloudinary.com/dja3ehblp/image/upload/A${userEmail.replace('@gmail.com', '')}.jpg`;
-      console.log(`URL ảnh đại diện: ${imageUrl}`);
-      updateAvatar(imageUrl);
-    } else {
-      clearLoginData();
-      console.log("Thông tin không hợp lệ. Đã xóa dữ liệu.");
-      avatarElement.setAttribute('onclick', 'showSignin()');
-    }
-  });
 }
 
 checkLoginStatus();

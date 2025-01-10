@@ -1,6 +1,6 @@
 const loginButton = document.getElementById("login_button");
-const usernameInput = document.getElementById("user");
+const accountInput = document.getElementById("account");
 const passwordInput = document.getElementById("pass");
 const rememberCheckbox = document.getElementById("remember");
 
-export { loginButton, usernameInput, passwordInput, rememberCheckbox };
+export { loginButton, accountInput, passwordInput, rememberCheckbox };
