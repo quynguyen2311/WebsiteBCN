@@ -1,4 +1,4 @@
-export const validateUsername = (username) => {
+export const validateMSSV = (username) => {
     return username && username.length > 0;
 };
 
