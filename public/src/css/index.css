@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Londrina+Outline&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=VT323&display=swap');
 
 html {
-    font-size: calc(100vh / 778);
+    font-size: calc(100dvh / 778);
 }
 * {
     padding: 0;
@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    height: 100vh;
+    height: 100dvh;
     width: 100vw;
     position: relative;
     display: flex;
@@ -19,10 +19,10 @@ body {
 .homepage {
     position: absolute;
     width: 1440rem;
-    height: 100vh;
+    height: 100dvh;
 }
 
-@media screen and (max-width: calc(100vh / 778 * 1440)) {
+@media screen and (max-width: calc(100dvh / 778 * 1440)) {
     .homepage {
         left: 0;
         translate: 0 0;
@@ -36,9 +36,9 @@ body {
 .body-bg {
     position: fixed;
     top: 0;
-    width: calc(100% + (100vh / 778 * 1440));
+    width: calc(100% + (100dvh / 778 * 1440));
     background-color: var(--token-background);
-    height: 100vh;
+    height: 100dvh;
     z-index: -2;
     left: 0;
 }
